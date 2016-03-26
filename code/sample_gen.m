@@ -16,15 +16,15 @@ end
 
 n = uint32 (siz (1) / pixel_size)
 m = uint32 (siz (2) / pixel_size)
-result = uint32 (repmat(9, [n, m]));
+result = uint8 (repmat(0, [n, m]));
 
 clearvars m n;
 
-for i = 1 : pixel_size : siz (1) / pixel_size
-    for j = 1 : pixel_size : siz (2) / pixel_size
-        result (uint32 (i / pixel_size) + 1, ...
-            uint32 (j / pixel_size) + 1) = ...
-            mean2 (original (i : i + pixel_size, j : j + pixel_size));
+for i = 1 : pixel_size : siz (1)
+    for j = 1 : pixel_size : siz (2)
+        result (uint32 ((i - 1) / pixel_size) + 1, ...
+            uint32 ((j - 1) / pixel_size) + 1) = ...
+            mean2 (original (i : i + pixel_size - 1, j : j + pixel_size - 1));
     end
 end
 
