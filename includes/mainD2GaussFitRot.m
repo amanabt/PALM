@@ -24,7 +24,7 @@
 %  Modifications:
 %  non
 %% ---------User Input---------------------
-MdataSize = 10; % Size of nxn data matrix
+MdataSize = 9; % Size of nxn data matrix
 % parameters are: [Amplitude, x0, sigmax, y0, sigmay, angel(in rad)]
 x0 = [256.0,6.0,2.0,5.0,2.0,0.0]; %Inital guess parameters
 x = x0; %[4,2.2,7,3.4,4.5,+0.02*2*pi]; %centroid parameters
@@ -32,8 +32,8 @@ noise = 0; % noise in % of centroid peak value (x(1))
 InterpolationMethod = 'cubic'; % 'nearest','linear','spline','cubic'
 FitForOrientation = 0; % 0: fit for orientation. 1: do not fit for orientation
 
-x_ = [-4.0:5.0];
-y_ = [-4.0 : 5.0]
+x_ = [-4.0 : 4.0];
+y_ = [-4.0 : 4.0];
 
 %% ---Generate centroid to be fitted--------------------------------------
 xin = x; 
@@ -47,7 +47,7 @@ xdatahr = zeros(300,300,2);
 xdatahr(:,:,1) = Xhr;
 xdatahr(:,:,2) = Yhr;
 %---Generate noisy centroid---------------------
-Z = double (cdata);%D2GaussFunctionRot(x,xdata);
+Z = double (cdata1);%D2GaussFunctionRot(x,xdata);
 %Z = Z + noise*(rand(size(X,1),size(Y,2))-0.5);
 
 %% --- Fit---------------------
@@ -109,9 +109,9 @@ vPoints = interp2(X,Y,Z,xvv,yvv,InterpolationMethod);
 
 hold on % Indicate major and minor axis on plot
 
-% % plot pints 
-% plot(xvh,yvh,'r.') 
-% plot(xvv,yvv,'g.')
+ %plot pints %____
+ %plot(xvh,yvh,'r.') %____
+ %plot(xvv,yvv,'g.') %____
 
 % plot lins 
 plot([xvh(1) xvh(size(xvh))],[yvh(1) yvh(size(yvh))],'r') 
