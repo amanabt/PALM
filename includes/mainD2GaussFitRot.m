@@ -24,16 +24,33 @@
 %  Modifications:
 %  non
 %% ---------User Input---------------------
-MdataSize = 9; % Size of nxn data matrix
+[rows, columns] = size(cdata);
+MdataSize = rows; % Size of nxn data matrix
+temp = rows / 2;
+[M,I] = max(cdata(:));
+[I_row, I_col] = ind2sub (size(cdata), I)
+if eq (rem (MdataSize, 2), 0.0)
+    x_ = double ([-temp + 1 : temp]);
+    I_row = I_row - MdataSize / 2;
+    I_col = I_col - MdataSize / 2;
+
+
+else
+    temp2 = floor (temp);
+    x_ = double ([ceil(-temp) : temp2]);
+    I_row = I_row - ceil(MdataSize / 2);
+    I_col = I_col - ceil(MdataSize / 2);
+end
+
+y_ = x_;
+
+
 % parameters are: [Amplitude, x0, sigmax, y0, sigmay, angel(in rad)]
-x0 = [256.0,6.0,2.0,5.0,2.0,0.0]; %Inital guess parameters
+x0 = double ([M, I_col, 2.0, I_row, 2.0, 0.0]); %Inital guess parameters
 x = x0; %[4,2.2,7,3.4,4.5,+0.02*2*pi]; %centroid parameters
 noise = 0; % noise in % of centroid peak value (x(1))
 InterpolationMethod = 'cubic'; % 'nearest','linear','spline','cubic'
 FitForOrientation = 0; % 0: fit for orientation. 1: do not fit for orientation
-
-x_ = [-4.0 : 4.0];
-y_ = [-4.0 : 4.0];
 
 %% ---Generate centroid to be fitted--------------------------------------
 xin = x; 
@@ -47,7 +64,7 @@ xdatahr = zeros(300,300,2);
 xdatahr(:,:,1) = Xhr;
 xdatahr(:,:,2) = Yhr;
 %---Generate noisy centroid---------------------
-Z = double (cdata1);%D2GaussFunctionRot(x,xdata);
+Z = double (cdata);%D2GaussFunctionRot(x,xdata);
 %Z = Z + noise*(rand(size(X,1),size(Y,2))-0.5);
 
 %% --- Fit---------------------
@@ -71,7 +88,7 @@ figure(1)
 C = del2(Z);
 mesh(X,Y,Z,C) %plot data
 hold on
-surface(Xhr,Yhr,D2GaussFunctionRot(x,xdatahr),'EdgeColor','none') %plot fit
+surfc(Xhr,Yhr,D2GaussFunctionRot(x,xdatahr),'EdgeColor','none') %plot fit
 axis([-MdataSize/2-0.5 MdataSize/2+0.5 -MdataSize/2-0.5 MdataSize/2+0.5 -noise noise+x(1)])
 alpha(0.2)  
 hold off
@@ -134,7 +151,7 @@ subplot(4,4,[8,12,16])
 xposv = (yvv-x(4))/cos(x(6))+x(4);% correct for the longer diagonal if fi~=0
 plot(vPoints,xposv,'g.',vdatafit,xdatafit,'black')
 axis([ymin*1.1 ymax*1.1 -MdataSize/2-0.5 MdataSize/2+0.5])
-set(gca,'YDir','reverse')
+set(gca,'YDir', 'reverse')
 figure(gcf) % bring current figure to front
 
 
