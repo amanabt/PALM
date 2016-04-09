@@ -1,0 +1,4 @@
+1 wide-field : A widefield microscope is one type of Fluorescence Microscope. In a conventional widefield microscope (WFM), the entire specimen is bathed in light from a mercury or xenon source, and the image can be viewed directly by eye or projected onto an image capture device or photographic film.
+2 EMCCD
+3 PSF
+4 LSF
