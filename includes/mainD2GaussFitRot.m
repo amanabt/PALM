@@ -1,5 +1,5 @@
 %% Fit a 2D gaussian function to data
-%% PURPOSE:  Fit a 2D gaussian centroid to simulated data
+
 % Uses lsqcurvefit to fit
 %
 % INPUT:
@@ -8,21 +8,7 @@
 %   x0 = [Amp,x0,wx,y0,wy,fi]: Inital guess parameters
 %   x = [Amp,x0,wx,y0,wy,fi]: simulated centroid parameters
 %   noise: noise in % of centroid peak value (x(1)
-%   InterpolationMethod = 'nearest' or 'linear' or 'spline' or 'cubic'
-%       used to calculate cross-section along minor and major axis
-%     
-%
-%
-% NOTE:
-%   The initial values in x0 must be close to x in order for the fit
-%   to converge to the values of x (especially if noise is added)
-%
-% OUTPUT:  non
-%
-% CREATED: G. Nootz  May 2012
-% 
-%  Modifications:
-%  non
+
 %% ---------User Input---------------------
 [rows, columns] = size(cdata);
 MdataSize = rows; % Size of nxn data matrix
@@ -48,7 +34,7 @@ y_ = x_;
 % parameters are: [Amplitude, x0, sigmax, y0, sigmay, angel(in rad)]
 x0 = double ([M, I_col, 2.0, I_row, 2.0, 0.0]); %Inital guess parameters
 x = x0; %[4,2.2,7,3.4,4.5,+0.02*2*pi]; %centroid parameters
-noise = 0; % noise in % of centroid peak value (x(1))
+noise = 0;
 InterpolationMethod = 'cubic'; % 'nearest','linear','spline','cubic'
 FitForOrientation = 0; % 0: fit for orientation. 1: do not fit for orientation
 
@@ -63,9 +49,8 @@ xdata(:,:,2) = Y;
 xdatahr = zeros(300,300,2);
 xdatahr(:,:,1) = Xhr;
 xdatahr(:,:,2) = Yhr;
-%---Generate noisy centroid---------------------
-Z = double (cdata);%D2GaussFunctionRot(x,xdata);
-%Z = Z + noise*(rand(size(X,1),size(Y,2))-0.5);
+
+Z = double (cdata);
 
 %% --- Fit---------------------
 if FitForOrientation == 0
@@ -125,10 +110,6 @@ xvv = yvv*mrot - brot;
 vPoints = interp2(X,Y,Z,xvv,yvv,InterpolationMethod);
 
 hold on % Indicate major and minor axis on plot
-
- %plot pints %____
- %plot(xvh,yvh,'r.') %____
- %plot(xvv,yvv,'g.') %____
 
 % plot lins 
 plot([xvh(1) xvh(size(xvh))],[yvh(1) yvh(size(yvh))],'r') 
