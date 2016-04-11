@@ -102,9 +102,9 @@ imagesc(X(1,:),Y(:,1)',Z)
 set(gca,'YDir','reverse')
 colormap('jet')
 
-string1 = ['       Amplitude','    X-Coordinate', '    X-Width','    Y-Coordinate','    Y-Width','     Angle'];
-string2 = ['Set     ',num2str(xin(1), '% 100.3f'),'             ',num2str(xin(2), '% 100.3f'),'         ',num2str(xin(3), '% 100.3f'),'         ',num2str(xin(4), '% 100.3f'),'        ',num2str(xin(5), '% 100.3f'),'     ',num2str(xin(6), '% 100.3f')];
-string3 = ['Fit      ',num2str(x(1), '% 100.3f'),'             ',num2str(x(2), '% 100.3f'),'         ',num2str(x(3), '% 100.3f'),'         ',num2str(x(4), '% 100.3f'),'        ',num2str(x(5), '% 100.3f'),'     ',num2str(x(6), '% 100.3f')];
+string1 = ['       Amplitude','    X-Coordinate','    Y-Coordinate'];%'     Angle'];
+string2 = ['Set     ',num2str(xin(1), '% 100.3f'),'             ',num2str(xin(2), '% 100.3f'),'         ',num2str(xin(4), '% 100.3f')];%,'     ',num2str(xin(6), '% 100.3f')];
+string3 = ['Fit      ',num2str(x(1), '% 100.3f'),'             ',num2str(x(2), '% 100.3f'),'         ',num2str(x(4), '% 100.3f')];%,'     ',num2str(x(6), '% 100.3f')];
 
 text(-MdataSize/2*0.9,+MdataSize/2*1.15,string1,'Color','red')
 text(-MdataSize/2*0.9,+MdataSize/2*1.2,string2,'Color','red')
